@@ -5,3 +5,6 @@ global:
       username: dhansking
       password: test123pass
       database: keycloak
+
+persistence:
+  size: 2Gi
