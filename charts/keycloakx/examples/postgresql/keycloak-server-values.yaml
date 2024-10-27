@@ -1,6 +1,20 @@
 # This is an example configuration, for production grade configuration see the Keycloak documentation.
 # See https://www.keycloak.org/server/configuration
 # See https://www.keycloak.org/server/all-config
+
+image:
+  tag: "26.0.2"
+
+podSecurityContext: null
+
+
+
+# SecurityContext for the Keycloak container
+securityContext:
+  runAsUser: 1007710000
+  runAsNonRoot: true
+
+
 command:
   - "/opt/keycloak/bin/kc.sh"
   - "--verbose"
@@ -26,15 +40,28 @@ extraEnv: |
       -XX:MaxRAMPercentage=50.0
       -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
 
-dbchecker:
+route:
+  # If `true`, an OpenShift Route is created
   enabled: true
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: false
+
+dbchecker:
+  enabled: false
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsUser: 1007710010
+    runAsGroup: 1007710010
+    runAsNonRoot: true  
 
 database:
   vendor: postgres
   hostname: keycloak-db-postgresql
   port: 5432
-  username: dbusername
-  password: dbpassword
+  username: dhansking
+  password: test123pass
   database: keycloak
 
 secrets:

@@ -2,6 +2,6 @@
 global:
   postgresql:
     auth:
-      username: dbusername
-      password: dbpassword
+      username: dhansking
+      password: test123pass
       database: keycloak
